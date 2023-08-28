@@ -1,5 +1,7 @@
 package com.example.supportportal.service.impl;
 
+import static org.apache.commons.lang3.StringUtils.EMPTY;
+
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -24,11 +26,13 @@ public class TaskServiceImpl  implements TaskService {
 	
 	
        private final TaskRepository taskRepository;
+       private final UserRepository userRepository;
        
 	  
 	  
-	    public TaskServiceImpl(TaskRepository taskRepository) {
+	    public TaskServiceImpl(TaskRepository taskRepository ,UserRepository userRepository) {
 	        this.taskRepository = taskRepository;
+	        this.userRepository = userRepository ;
 	    }
 	
 	  @Override
@@ -65,10 +69,23 @@ public class TaskServiceImpl  implements TaskService {
 			// TODO Auto-generated method stub
 			return taskRepository.findById(id).get();
 		}
-		
-		
-		
-		 
-	}
 
-
+		@Override
+		public Task addNewTask(String title, String description, int priorite, Date dl, String userid) {
+			 
+		        Task task = new Task();
+		       
+		        task.setTitle(title);
+		        task.setDescription(description);
+		        task.setType("non-fini");
+		        task.setPriorite(priorite);
+		        task.setDl(dl);
+		        task.setUser(userRepository.findUserByUserId(userid));
+		        taskRepository.save(task);
+		        return task;
+		}
+}
+		
+		
+		
+		

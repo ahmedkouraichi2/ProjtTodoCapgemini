@@ -1,5 +1,6 @@
 package com.example.supportportal.service;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -18,6 +19,8 @@ public interface TaskService {
 	 
 	 Task getTaskById(Long id);
 
+	 
+	 Task addNewTask(String title, String description, int priorite, Date dl,String userid);
 	       
 	   
 
