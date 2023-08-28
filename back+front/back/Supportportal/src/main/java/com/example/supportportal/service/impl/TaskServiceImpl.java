@@ -1,5 +1,7 @@
 package com.example.supportportal.service.impl;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -52,7 +54,16 @@ public class TaskServiceImpl  implements TaskService {
 		public Task updateTaskFini(Long id) {
 			Task currentTask = taskRepository.getById(id);
 			currentTask.setType("fini");
+	        Date currentDate = new Date();		
+	        currentTask.setDueDate(currentDate);
 			return currentTask ;
+			
+		}
+
+		@Override
+		public Task getTaskById(Long id) {
+			// TODO Auto-generated method stub
+			return taskRepository.findById(id).get();
 		}
 		
 		

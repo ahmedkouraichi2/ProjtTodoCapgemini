@@ -31,9 +31,10 @@ public class TaskResource {
 	
 	
     @Autowired
-    public TaskResource(UserRepository userRepository, TaskService taskService) {
+    public TaskResource(UserRepository userRepository, TaskService taskService ) {
         this.userRepository = userRepository;
         this.taskService = taskService;
+        
     }
 
     @GetMapping("/user/{userId}/tasks")
@@ -55,6 +56,19 @@ public class TaskResource {
          taskService.updateTaskFini(id);
          return true ;
         
+    }
+    
+
+    @GetMapping("/tasks/{id}")
+    public ResponseEntity<Task> getTaskById(@PathVariable Long id) {
+        // Find the task by its ID in the repository
+        Task task = taskService.getTaskById(id);
+
+        if (task == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(task);
+        }
     }
     
     
